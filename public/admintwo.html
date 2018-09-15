@@ -4,8 +4,8 @@
 <head>
     <title>Admin</title>
     <!-- Added link to the jQuery Library -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
+    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+    crossorigin="anonymous"></script>
     <!-- Added a link to Bootstrap-->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 
@@ -90,7 +90,7 @@
                 console.log(data);
                 console.log(data[1].building)
 
-                for (i = 0; i < 10; i++) {
+                for (i = 0; i < 100; i++) {
                     if (data[i].building == 1) {
                         buildingOne++
                     }
