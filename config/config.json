@@ -1,7 +1,7 @@
 {
   "development": {
     "username": "root",
-    "password": "lawton1331",
+    "password": "covenant22",
     "database": "sandwichdashdb",
     "host": "localhost",
     "dialect": "mysql"
