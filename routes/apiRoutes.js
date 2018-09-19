@@ -2,8 +2,7 @@ var db = require("../models");
 
 module.exports = function (app) {
 
-
-  // Get route for retrieving a single post
+  // Get route for retrieving a single post from api/orders
   app.get("/api/orders/:name", function(req, res) {
     db.Info.findOne({
       where: {
@@ -14,7 +13,8 @@ module.exports = function (app) {
         res.json(dbInfo);
       });
   }); 
-//Delete
+
+  // Delete route for api/orders
   app.delete("/api/orders/:name", function(req, res) {
     db.Info.destroy({
       where: {
@@ -26,83 +26,85 @@ module.exports = function (app) {
       });
   });
 
-  // Get all examples
-
+  // Get route for retrieving all data from api/sandwiches
   app.get("/api/sandwiches", function (req, res) {
     db.Sandwich.findAll({}).then(function (dbSandwich) {
       res.json(dbSandwich);
     });
   });
 
-  // Create a new example
+  // Post route for submitting data to api/sandwiches
   app.post("/api/sandwiches", function (req, res) {
     db.Sandwich.create(req.body).then(function (dbSandWich) {
       res.json(dbSandWich);
     });
   });
 
+  // Get route for retrieving all data from api/sides
   app.get("/api/sides", function (req, res) {
     db.Side.findAll({}).then(function (dbSide) {
       res.json(dbSide);
     });
   });
 
-  // Create a new example
+  // Post route for submitting data to api/sides
   app.post("/api/sides", function (req, res) {
     db.Side.create(req.body).then(function (dbSide) {
       res.json(dbSide);
     });
   });
 
-
+  // Get route for retrieving all data from api/drinks
   app.get("/api/drinks", function (req, res) {
     db.Drink.findAll({}).then(function (dbDrink) {
       res.json(dbDrink);
     });
   });
 
-  // Create a new example
+  // Post route for submitting data to api/drinks
   app.post("/api/drinks", function (req, res) {
     db.Drink.create(req.body).then(function (dbDrink) {
       res.json(dbDrink);
     });
   });
 
+  // Get route for retrieving all data from api/info
   app.get("/api/info", function (req, res) {
     db.Info.findAll({}).then(function (dbInfo) {
       res.json(dbInfo);
     });
   });
 
-  // Create a new example
+  // Post route for submitting data to api/info
   app.post("/api/info", function (req, res) {
     db.Info.create(req.body).then(function (dbInfo) {
       res.json(dbInfo);
     });
   });
 
+  // Get route for retrieving all data from api/total
   app.get("/api/total", function (req, res) {
     db.Total.findAll({}).then(function (dbTotal) {
       res.json(dbTotal);
     });
   });
 
-  // Create a new example
+  // Post route for submitting data to api/total
   app.post("/api/total", function (req, res) {
     db.Total.create(req.body).then(function (dbTotal) {
       res.json(dbTotal);
     });
   });
 
+  // Joins data from all modlels--need to fix
   app.get("/api/orders", function (req, res) {
     // Here we add an "include" property to our options in our findAll query
     // We set the value to an array of the models we want to include in a left outer join
-    // In this case, just db.Post
     db.Info.findAll({
       include: [{ all: true }]
     }).then(function(Info) {
       const resObj = Info.map(function(customer){
-        //tidy up the info data
+        // Tidy up the info data
         return Object.assign(
           {},
           {
@@ -113,7 +115,7 @@ module.exports = function (app) {
             room_number: customer.room,
             details: customer.details,
             total: customer.Totals.map(function(Totals){
-              //tidy up the post data
+              // Tidy up the post data
               return Object.assign(
                 
                 
@@ -121,7 +123,7 @@ module.exports = function (app) {
             )
           }),
             sandwiches: customer.Sandwiches.map(function(Sandwiches){
-              //tidy up the post data
+              // Tidy up the post data
               return Object.assign(
                 {},
                 {
@@ -132,7 +134,7 @@ module.exports = function (app) {
             })
            }),
             sides: customer.Sides.map(function(Sides){
-              //tidy up the post data
+              // Tidy up the post data
               return Object.assign(
                 
                 
@@ -140,7 +142,7 @@ module.exports = function (app) {
             )
           }),
             drinks: customer.Drinks.map(function(Drinks){
-              //tidy up the post data
+              // Tidy up the post data
               return Object.assign(
                
                 
@@ -151,11 +153,6 @@ module.exports = function (app) {
         )
         
       })
-    
-    // }).then(function (all) {
-    //   res.json(all);
-    // });
-
     
     res.json(resObj)
 

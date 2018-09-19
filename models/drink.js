@@ -1,26 +1,16 @@
 module.exports = function(sequelize, DataTypes) {
+    // Setting up drink Model
     var Drink = sequelize.define("Drink", {
       orderid: DataTypes.FLOAT,
       drinks: DataTypes.STRING,
       });
 
+      // Associate Drink Model with Info Model
       Drink.associate = function(models) {
-        // We're saying that a Post should belong to an Author
-        // A Post can't be created without an Author due to the foreign key constraint
         Drink.belongsTo(models.Info, {
           foreignKey: 'orderid'}
         );
       };
-    
-      // Drink.associate = function(models) {
-      //   // We're saying that a Post should belong to an Author
-      //   // A Post can't be created without an Author due to the foreign key constraint
-      //   Drink.belongsTo(models.Info, {
-      //     foreignKey: {
-      //       allowNull: false
-      //     }
-      //   });
-      // };
 
     return Drink;
   };

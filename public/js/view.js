@@ -1,5 +1,6 @@
 var clock;
 
+// Displays flipclock
 $(document).ready(function() {
 
     var deadlineHour = 11, offset = 0;

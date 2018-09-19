@@ -1,6 +1,6 @@
 module.exports = function (sequelize, DataTypes) {
+  // Setting up Info Model
   var Info = sequelize.define("Info", {
-    // Giving the Author model a name of type STRING
     orderid: {
       type: DataTypes.FLOAT,
       primaryKey: true,
@@ -12,16 +12,9 @@ module.exports = function (sequelize, DataTypes) {
       updatedAt: 'order',
     });
 
-  // Info.associate = function(models) {
-  //   // Associating Author with Posts
-  //   // When an Author is deleted, also delete any associated Posts
-  //   Author.hasMany(models.Post, {
-  //     onDelete: "cascade"
-  //   });
-  // };
+
+  // Associate Info with the other 4 models
   Info.associate = function (models) {
-    // Associating Author with Posts
-    // When an Author is deleted, also delete any associated Posts
     Info.hasMany(models.Side, {
       foreignKey: 'orderid'
     }
@@ -38,19 +31,9 @@ module.exports = function (sequelize, DataTypes) {
       foreignKey: 'orderid'
     }
     );
-    // Info.hasMany(models.Side, {
-    //   foreignKey: 'orderid'
-    // }
-    // );
   };
-
-
-
 
   return Info;
 };
 
 
-//   Info.hasMany(Side, {
-//     foreignKey: 'orderid',
-//   });

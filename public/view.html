@@ -17,46 +17,9 @@
 	 <script src="../compiled/flipclock.js"></script>
 	 <link rel="stylesheet" href="../compiled/flipclock.css">
 </head>
-<script type="text/javascript">
-    var clock;
 
-    $(document).ready(function() {
-
-        var deadlineHour = 11, offset = 0;
-
-        // Grab the current date
-        var currentDate = new Date();
-
-        if(currentDate.getHours() >= deadlineHour) {
-            offset = 1;
-        }
-
-        var futureDate = new Date(
-            currentDate.getFullYear(), 
-            currentDate.getMonth(), 
-            currentDate.getDate() + offset, 
-            deadlineHour
-        );
-
-        // Calculate the difference in seconds between the future and current date
-        var diff = futureDate.getTime() / 1000 - currentDate.getTime() / 1000;
-
-        // Instantiate a coutdown FlipClock
-        clock = $('.clock').FlipClock(diff, {
-            clockFace: 'HourlyCounter',
-            
-                countdown: true
-            
-        });
-
-        clock.face.on('stop', function() {
-            // add 24 hours worth of seconds to the clock face
-            clock.setFaceValue(24 * 60 * 60);
-            clock.start();
-        });
-    });
-</script>
 <body>
+	<!-- navbar -->
 	<nav class="navbar navbar-expand-md sticky-top main-nav">
 		<div class="container nav-container">
 			<div class="navbar-collapse collapse nav-content order-2">
@@ -89,6 +52,7 @@
 		</div>
  	</nav>
 	 
+	 <!-- Clock and welcoming text -->
 	<div class="container body-container  mt-3 mb-3">
 			<div class="clock" style=""></div>
 			<div class="message"></div>
@@ -108,6 +72,7 @@
 			<hr class="my-4">
 	</div>
 
+	<!-- dummy footer -->
 	<footer class="footer sticky-bottom">
 			<div class="container footer-container">
 				<div class="row pt-3">

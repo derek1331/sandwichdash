@@ -1,24 +1,18 @@
-//on show
+// On open Modal displayes name from seesion storage
 $('#exampleModal').on('show.bs.modal', function (event) {
-  var button = $(event.relatedTarget) // Button that triggered the modal
-  var recipient = button.data('whatever') // Extract info from data-* attributes
-  // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-  // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
   var modal = $(this)
   modal.find('.modal-title').text('Congrats ' + sessionStorage.getItem('name'))
   modal.find('.modal-body').text("Your order has been recieved and you will recieve a conformation text shortly")
 })
 
-// on hide
+// On close Modal redirects user to home/root
 $('#exampleModal').on('hidden.bs.modal', function (event) {
   window.location.href = "/";
-
 })
 
-$(".submit").on("click", function (event) {
-  event.preventDefault();
+// Button to collect payment info--if we collected payment info
+// $(".submit").on("click", function (event) {
+//   // event.preventDefault();
 
-  console.log($(".payment:checked").map(function () { return this.value; }).get().join(","));
-  
-
-});
+//   console.log($(".payment:checked").map(function () { return this.value; }).get().join(","));
+//   });
