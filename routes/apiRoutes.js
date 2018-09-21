@@ -1,29 +1,26 @@
 var db = require("../models");
 
 module.exports = function (app) {
-
   // Get route for retrieving a single post from api/orders
-  app.get("/api/orders/:name", function(req, res) {
+  app.get("/api/orders/:name", function (req, res) {
     db.Info.findOne({
       where: {
         name: req.params.name
       }
-    })
-      .then(function(dbInfo) {
-        res.json(dbInfo);
-      });
-  }); 
+    }).then(function (dbInfo) {
+      res.json(dbInfo);
+    });
+  });
 
   // Delete route for api/orders
-  app.delete("/api/orders/:name", function(req, res) {
+  app.delete("/api/orders/:name", function (req, res) {
     db.Info.destroy({
       where: {
         name: req.params.name
       }
-    })
-      .then(function(dbInfo) {
-        res.json(dbInfo);
-      });
+    }).then(function (dbInfo) {
+      res.json(dbInfo);
+    });
   });
 
   // Get route for retrieving all data from api/sandwiches
@@ -101,62 +98,44 @@ module.exports = function (app) {
     // Here we add an "include" property to our options in our findAll query
     // We set the value to an array of the models we want to include in a left outer join
     db.Info.findAll({
-      include: [{ all: true }]
-    }).then(function(Info) {
-      const resObj = Info.map(function(customer){
+      include: [{
+        all: true
+      }]
+    }).then(function (Info) {
+      const resObj = Info.map(function (customer) {
         // Tidy up the info data
-        return Object.assign(
-          {},
-          {
-            orderid: customer.orderid,
-            ordered_at: customer.order,
-            name: customer.name,
-            building: customer.building,
-            room_number: customer.room,
-            details: customer.details,
-            total: customer.Totals.map(function(Totals){
-              // Tidy up the post data
-              return Object.assign(
-                
-                
-                  Totals.total
-            )
+        return Object.assign({}, {
+          orderid: customer.orderid,
+          ordered_at: customer.order,
+          name: customer.name,
+          building: customer.building,
+          room_number: customer.room,
+          details: customer.details,
+          total: customer.Totals.map(function (Totals) {
+            // Tidy up the post data
+            return Object.assign(Totals.total);
           }),
-            sandwiches: customer.Sandwiches.map(function(Sandwiches){
-              // Tidy up the post data
-              return Object.assign(
-                {},
-                {
-                  type: Sandwiches.type,
-                  bread: Sandwiches.bread,
-                  veggies: Sandwiches.veggies,
-                  condiments: Sandwiches.condiments
-            })
-           }),
-            sides: customer.Sides.map(function(Sides){
-              // Tidy up the post data
-              return Object.assign(
-                
-                
-                  Sides.sides
-            )
+          sandwiches: customer.Sandwiches.map(function (Sandwiches) {
+            // Tidy up the post data
+            return Object.assign({}, {
+              type: Sandwiches.type,
+              bread: Sandwiches.bread,
+              veggies: Sandwiches.veggies,
+              condiments: Sandwiches.condiments
+            });
           }),
-            drinks: customer.Drinks.map(function(Drinks){
-              // Tidy up the post data
-              return Object.assign(
-               
-                
-                  Drinks.drinks
-          )
-         })
-        }
-        )
-        
-      })
-    
-    res.json(resObj)
+          sides: customer.Sides.map(function (Sides) {
+            // Tidy up the post data
+            return Object.assign(Sides.sides);
+          }),
+          drinks: customer.Drinks.map(function (Drinks) {
+            // Tidy up the post data
+            return Object.assign(Drinks.drinks);
+          })
+        });
+      });
 
-    })
-
+      res.json(resObj);
     });
+  });
 };

@@ -1,16 +1,16 @@
-module.exports = function(sequelize, DataTypes) {
-    // Setting up drink Model
-    var Drink = sequelize.define("Drink", {
-      orderid: DataTypes.FLOAT,
-      drinks: DataTypes.STRING,
-      });
+module.exports = function (sequelize, DataTypes) {
+  // Setting up drink Model
+  var Drink = sequelize.define("Drink", {
+    orderid: DataTypes.FLOAT,
+    drinks: DataTypes.STRING
+  });
 
-      // Associate Drink Model with Info Model
-      Drink.associate = function(models) {
-        Drink.belongsTo(models.Info, {
-          foreignKey: 'orderid'}
-        );
-      };
-
-    return Drink;
+  // Associate Drink Model with Info Model
+  Drink.associate = function (models) {
+    Drink.belongsTo(models.Info, {
+      foreignKey: "orderid"
+    });
   };
+
+  return Drink;
+};

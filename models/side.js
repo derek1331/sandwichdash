@@ -1,20 +1,20 @@
-module.exports = function(sequelize, DataTypes) {
+module.exports = function (sequelize, DataTypes) {
   // Setting up Side Model
-  var Side = sequelize.define("Side", {
-    orderid: DataTypes.FLOAT,
-    sides: DataTypes.STRING}, {
-      timestamps: false  
+  var Side = sequelize.define(
+    "Side", {
+      orderid: DataTypes.FLOAT,
+      sides: DataTypes.STRING
+    }, {
+      timestamps: false
+    }
+  );
+
+  // Associating it with the Info Model
+  Side.associate = function (models) {
+    Side.belongsTo(models.Info, {
+      foreignKey: "orderid"
     });
+  };
 
-    // Associating it with the Info Model
-    Side.associate = function(models) {
-      Side.belongsTo(models.Info, {
-        foreignKey: 'orderid'}
-      );
-    };
-  
-;
-  
-    return Side;
+  return Side;
 };
-
